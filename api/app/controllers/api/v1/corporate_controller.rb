@@ -6,6 +6,7 @@ module Api
     class CorporateController < ApiController
       protect_from_forgery
       before_action :authenticate_user!
+      before_action :set_paper_trail_whodunnit
 
       def current_contact
         @current_contact ||= current_user.contact
@@ -14,6 +15,10 @@ module Api
       before_action :configure_permitted_parameters, if: :devise_controller?
 
       protected
+
+      def user_for_paper_trail
+        current_contact
+      end
 
       def configure_permitted_parameters
         att_create = %i[username email password password_confirmation]

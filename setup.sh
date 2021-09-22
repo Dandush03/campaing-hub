@@ -22,7 +22,7 @@ run() {
 
 (
   run corporate yarn &
-#  run client yarn 
+  # run client yarn 
 ) &
 
 (
