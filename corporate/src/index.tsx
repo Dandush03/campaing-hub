@@ -1,20 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import {
   BrowserRouter, Switch, Route,
 } from 'react-router-dom';
 
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import storeConfig from './store';
+
+const store = storeConfig();
+
 
 ReactDOM.render(
     <React.StrictMode>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/corporate" exact component={App} />
-        </Switch>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/corporate" exact component={App} />
+          </Switch>
+        </BrowserRouter>
+      </Provider>
     </React.StrictMode>,
     document.getElementById('root'),
 );
