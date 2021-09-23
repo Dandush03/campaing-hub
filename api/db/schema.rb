@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_912_035_647) do
+ActiveRecord::Schema.define(version: 20_210_921_193_108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -25,6 +25,49 @@ ActiveRecord::Schema.define(version: 20_210_912_035_647) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['user_id'], name: 'index_contacts_on_user_id'
+  end
+
+  create_table 'pictures', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
+    t.string 'title', default: '', null: false
+    t.string 'url', default: '', null: false
+    t.string 'signature', default: '', null: false
+    t.string 'filename', default: '', null: false
+    t.integer 'rank', default: 0, null: false
+    t.string 'gallery_type', default: 'Photo'
+    t.bigint 'gallery_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index %w[gallery_type gallery_id], name: 'index_pictures_on_gallery'
+  end
+
+  create_table 'taggings', id: :serial, force: :cascade do |t|
+    t.integer 'tag_id'
+    t.string 'taggable_type'
+    t.integer 'taggable_id'
+    t.string 'tagger_type'
+    t.integer 'tagger_id'
+    t.string 'context', limit: 128
+    t.datetime 'created_at'
+    t.string 'tenant', limit: 128
+    t.index ['context'], name: 'index_taggings_on_context'
+    t.index %w[tag_id taggable_id taggable_type context tagger_id tagger_type], name: 'taggings_idx',
+                                                                                unique: true
+    t.index ['tag_id'], name: 'index_taggings_on_tag_id'
+    t.index %w[taggable_id taggable_type context], name: 'taggings_taggable_context_idx'
+    t.index %w[taggable_id taggable_type tagger_id context], name: 'taggings_idy'
+    t.index ['taggable_id'], name: 'index_taggings_on_taggable_id'
+    t.index ['taggable_type'], name: 'index_taggings_on_taggable_type'
+    t.index %w[tagger_id tagger_type], name: 'index_taggings_on_tagger_id_and_tagger_type'
+    t.index ['tagger_id'], name: 'index_taggings_on_tagger_id'
+    t.index ['tenant'], name: 'index_taggings_on_tenant'
+  end
+
+  create_table 'tags', id: :serial, force: :cascade do |t|
+    t.string 'name'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.integer 'taggings_count', default: 0
+    t.index ['name'], name: 'index_tags_on_name', unique: true
   end
 
   create_table 'users', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
@@ -56,4 +99,17 @@ ActiveRecord::Schema.define(version: 20_210_912_035_647) do
     t.index ['unlock_token'], name: 'index_users_on_unlock_token', unique: true
     t.index ['username'], name: 'index_users_on_username', unique: true
   end
+
+  create_table 'versions', force: :cascade do |t|
+    t.string 'item_type'
+    t.string '{:null=>false}'
+    t.bigint 'item_id', null: false
+    t.string 'event', null: false
+    t.string 'whodunnit'
+    t.text 'object'
+    t.datetime 'created_at'
+    t.index %w[item_type item_id], name: 'index_versions_on_item_type_and_item_id'
+  end
+
+  add_foreign_key 'taggings', 'tags'
 end
