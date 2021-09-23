@@ -5,7 +5,7 @@ module Api
     # Translation Controller
     class I18nController < ApiController
       def index
-        render json: I18n.t(index_params[:namespace]), status: :ok
+        render json: { "#{I18n.locale}": I18n.t(index_params[:namespace]) }, status: :ok
       end
 
       private
