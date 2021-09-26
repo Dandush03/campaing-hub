@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :picture do
+  factory :visual_medium do
     title { Faker::Name.name }
     filename { Faker::Name.name }
     sequence(:signature) { |n| "bfec72b23487654e964febf8b89fe5f4ce796c#{n}c" }

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Picture, type: :model do
+RSpec.describe VisualMedium, type: :model do
   it { should belong_to(:gallery) }
 
   it { should validate_presence_of(:signature) }
