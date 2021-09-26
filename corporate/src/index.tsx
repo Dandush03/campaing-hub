@@ -8,6 +8,9 @@ import {
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import storeConfig from './store';
+import Layout from './layout';
+
+import './i18n';
 
 const store = storeConfig();
 
@@ -16,9 +19,11 @@ ReactDOM.render(
     <React.StrictMode>
       <Provider store={store}>
         <BrowserRouter>
-          <Switch>
-            <Route path="/corporate" exact component={App} />
-          </Switch>
+          <Layout>
+            <Switch>
+              <Route path="/corporate" exact component={App} />
+            </Switch>
+          </Layout>
         </BrowserRouter>
       </Provider>
     </React.StrictMode>,

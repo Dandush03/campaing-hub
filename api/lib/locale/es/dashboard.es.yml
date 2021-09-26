@@ -1,4 +1,3 @@
 es:
   dashboard:
-    menu:
-      campaigns: 'Campañas'
+    hello: 'hello'

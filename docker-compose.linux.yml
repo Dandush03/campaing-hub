@@ -62,3 +62,5 @@ services:
 volumes:
   bundle_cache:
   postgres:
+networks:
+  default:
