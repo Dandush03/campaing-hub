@@ -5,9 +5,14 @@ interface menu {
   campaigns: string
 }
 
-export interface I18n {
+interface translation {
   menu?: menu,
 }
+
+export interface I18n {
+  en?: translation
+}
+
 const initialState: I18n = {};
 
 export const i18nSlice = createSlice({
