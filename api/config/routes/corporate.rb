@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :corporate do
         root to: 'dashboard#show', as: :corporate_root
+
+        resources :campaigns, only: %i[index create update]
       end
     end
   end

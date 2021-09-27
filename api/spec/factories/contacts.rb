@@ -12,6 +12,5 @@ FactoryBot.define do
     user
     firstname { Faker::Name.unique.name }
     lastname { Faker::Name.unique.name }
-    contact_type { 'corporate' }
   end
 end

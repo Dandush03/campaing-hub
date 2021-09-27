@@ -39,6 +39,9 @@ gem 'acts-as-taggable-on', '~> 8.0'
 # Add peper_trail
 gem 'paper_trail'
 
+# ActiveRecord Serializer
+gem 'active_model_serializers'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'bullet'
