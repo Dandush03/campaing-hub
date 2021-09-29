@@ -13,4 +13,10 @@ class Company < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   validates :subdomain, presence: true, uniqueness: true
+
+  def self.current
+    find(Tenant.connection.execute("SELECT current_setting('rls.company_id')").getvalue(0, 0))
+  rescue ActiveRecord::StatementInvalid
+    'no tenant is selected'
+  end
 end

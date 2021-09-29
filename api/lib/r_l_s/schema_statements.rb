@@ -9,9 +9,13 @@ module RLS
   end
 
   # Include create_rls_table to SchemaStatements
+
+  # rubocop:disable Metrics/ModuleLength
   module SchemaStatements
     def create_rls_tenant_table(table_name, **options, &block)
+      create_rls_blocking_function
       create_table(table_name, **options, &block)
+      append_blocking_function(table_name)
       create_rls_setter_function(:company)
       create_rls_user
     end
@@ -19,7 +23,9 @@ module RLS
     def drop_rls_tenant_table(table_name)
       drop_rls_user
       drop_rls_setter_function
+      detach_blocking_function(table_name)
       drop_table(table_name)
+      drop_rls_blocking_function
     end
 
     def create_rls_table(table_name, **options, &block)
@@ -51,19 +57,48 @@ module RLS
       Migration.execute "DROP USER #{name};"
     end
 
+    def create_rls_blocking_function
+      Migration.execute <<-SQL
+        CREATE OR REPLACE FUNCTION id_safe_guard ()
+          RETURNS TRIGGER LANGUAGE plpgsql AS $$
+            BEGIN
+              RAISE EXCEPTION 'This column is guarded due to tenancy dependency';
+            END $$;
+      SQL
+    end
+
+    def drop_rls_blocking_function
+      Migration.execute 'DROP FUNCTION IF EXISTS id_safe_guard ();'
+    end
+
     def create_rls_setter_function(column = :company)
       Migration.execute <<-SQL
         CREATE OR REPLACE FUNCTION company_id_setter ()
-          RETURNS TRIGGER LANGUAGE plpgsql as $$
-            begin
-                new.#{column}_id:= (current_setting('rls.company_id'));
-                return new;
-            end $$;
+          RETURNS TRIGGER LANGUAGE plpgsql AS $$
+            BEGIN
+              new.#{column}_id:= (current_setting('rls.company_id'));
+              RETURN new;
+            END $$;
       SQL
     end
 
     def drop_rls_setter_function
       Migration.execute 'DROP FUNCTION IF EXISTS company_id_setter ();'
+    end
+
+    def append_blocking_function(table_name)
+      Migration.execute <<-SQL
+        CREATE TRIGGER id_safe_guard
+          BEFORE UPDATE OF id ON #{table_name}
+            FOR EACH ROW EXECUTE PROCEDURE id_safe_guard();
+      SQL
+    end
+
+    def detach_blocking_function(table_name)
+      Migration.execute <<-SQL
+        DROP TRIGGER IF EXISTS id_safe_guard
+          ON #{table_name};
+      SQL
     end
 
     def append_trigger_function(table_name)
@@ -124,4 +159,5 @@ module RLS
       SQL
     end
   end
+  # rubocop:enable Metrics/ModuleLength
 end

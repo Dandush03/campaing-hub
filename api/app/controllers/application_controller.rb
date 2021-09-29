@@ -2,13 +2,13 @@
 
 # Application Controller
 class ApplicationController < ActionController::Base
-  around_action :with_current_company
+  before_action :switch_tenant
 
   def current_company
-    @current_company ||= Company.find_by_subdomain(request.subdomain)
+    @current_company ||= Company.current
   end
 
-  def with_current_company(&block)
-    AppUser.with_current_company(current_company.id, &block)
+  def switch_tenant
+    Tenant.switch request.subdomain
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Campaign < AppUser
-  has_many :visual_medium, as: :gallery, dependent: :destroy
+class Campaign < Tenant
+  has_many :visual_media, as: :gallery, dependent: :destroy
 
   acts_as_taggable_on :labels
 

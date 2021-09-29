@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class User < AppUser
+class User < Tenant
   attr_writer :login
 
   # Include default devise modules. Others available are:
