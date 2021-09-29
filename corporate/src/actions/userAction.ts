@@ -1,20 +1,26 @@
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import axios from 'axios';
-import { startLoading } from '../reducers/loadingReducer';
+import {
+  removeLoadingState, resetLoading, startLoading,
+} from '../reducers/loadingReducer';
+import { getCurrentUser } from '../reducers/userReducer';
 
-const getCurrentContact = () => {
-  const url = '';
+const getCurrentUserSession = () => {
+  const url = '/api/v1/corporate';
   return async (dispatch: ThunkDispatch<any, any, AnyAction>) => {
     dispatch(startLoading());
     axios
         .get(url)
-        .then((response) => {
-          // eslint-disable-next-line no-unused-vars
-          const { status, data } = response;
-          debugger;
+        .then(({ data }) => {
+          dispatch(getCurrentUser(data));
+        })
+        .then(() => dispatch(removeLoadingState()))
+        .catch(({ response: { status } }) => {
+          if (status === 401) window.location.href = '/users/sign_in';
+          return dispatch(resetLoading());
         });
   };
 };
 
-export { getCurrentContact };
+export { getCurrentUserSession };

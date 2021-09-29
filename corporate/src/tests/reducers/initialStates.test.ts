@@ -1,15 +1,16 @@
-import reducers, { i18nReducer, loadingReducer } from '../../reducers';
+import reducers, { userReducer, loadingReducer } from '../../reducers';
 
 test('return the initial state', () => {
   expect(reducers(undefined, <any>{})).toEqual({
-    i18n: {},
+    user: { login: false },
     loading: 0,
   });
 });
 
 
-test('return the i18n initial state', () => {
-  expect(i18nReducer(undefined, <any>{})).toEqual({
+test('return the user initial state', () => {
+  expect(userReducer(undefined, <any>{})).toEqual({
+    login: false,
   });
 });
 

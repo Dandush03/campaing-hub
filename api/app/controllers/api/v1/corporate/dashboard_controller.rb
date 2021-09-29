@@ -6,7 +6,7 @@ module Api
       # Home Controller
       class DashboardController < CorporateController
         def show
-          render json: { message: 'yey' }
+          render json: current_contact
         end
       end
     end

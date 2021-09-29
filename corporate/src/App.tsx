@@ -1,14 +1,7 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { getTranslation } from './actions/i18nAction';
+import React from 'react';
+
 
 const App: React.FunctionComponent<{}> = (props) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTranslation());
-  }, []);
-
   return (
     <div className="App">
       <header className="App-header">
