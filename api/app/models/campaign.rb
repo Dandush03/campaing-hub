@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-class Campaign < ApplicationRecord
+class Campaign < AppUser
   has_many :visual_medium, as: :gallery, dependent: :destroy
+
   acts_as_taggable_on :labels
 
   validates :name, presence: true, length: { minimum: 3, maximum: 50 }

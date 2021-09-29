@@ -23,8 +23,15 @@ default: &default
   pool: <%= Rails.application.credentials.dig(:database, :server_1, :pool) %>
 
 development:
-  <<: *default
-  database: api_development
+  primary:
+    <<: *default
+    database: api_development
+    username: <%= Rails.application.credentials.dig(:database, :server_1_admin, :username) %>
+    password: <%= Rails.application.credentials.dig(:database, :server_1_admin, :password) %>
+
+  app_user:
+    <<: *default
+    database: api_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

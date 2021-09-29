@@ -22,7 +22,23 @@ ActiveRecord::Schema.define(version: 20_210_926_204_844) do
     t.string 'token'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.uuid 'company_id'
     t.index ['token'], name: 'index_campaigns_on_token', unique: true
+  end
+
+  create_table 'companies', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
+    t.string 'name'
+    t.string 'logo'
+    t.string 'identification'
+    t.string 'subdomain'
+    t.string 'domain'
+    t.string 'lang', default: 'en', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['domain'], name: 'index_companies_on_domain', unique: true
+    t.index ['identification'], name: 'index_companies_on_identification', unique: true
+    t.index ['name'], name: 'index_companies_on_name', unique: true
+    t.index ['subdomain'], name: 'index_companies_on_subdomain', unique: true
   end
 
   create_table 'contacts', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
@@ -33,6 +49,7 @@ ActiveRecord::Schema.define(version: 20_210_926_204_844) do
     t.uuid 'user_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.uuid 'company_id'
     t.index ['user_id'], name: 'index_contacts_on_user_id'
   end
 
@@ -85,11 +102,10 @@ ActiveRecord::Schema.define(version: 20_210_926_204_844) do
     t.integer 'failed_attempts', default: 0, null: false
     t.string 'unlock_token'
     t.datetime 'locked_at'
-    t.uuid 'contact_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.uuid 'company_id'
     t.index ['confirmation_token'], name: 'index_users_on_confirmation_token', unique: true
-    t.index ['contact_id'], name: 'index_users_on_contact_id'
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
     t.index ['unlock_token'], name: 'index_users_on_unlock_token', unique: true
@@ -104,6 +120,7 @@ ActiveRecord::Schema.define(version: 20_210_926_204_844) do
     t.string 'whodunnit'
     t.text 'object'
     t.datetime 'created_at'
+    t.uuid 'company_id'
     t.index %w[item_type item_id], name: 'index_versions_on_item_type_and_item_id'
   end
 
@@ -117,6 +134,7 @@ ActiveRecord::Schema.define(version: 20_210_926_204_844) do
     t.bigint 'gallery_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.uuid 'company_id'
     t.index %w[gallery_type gallery_id], name: 'index_visual_media_on_gallery'
   end
 

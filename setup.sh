@@ -26,7 +26,7 @@ run() {
 ) &
 
 (
-  run api rails db:create
-  run api rails db:migrate
+  run api rails db:create:primary
+  run api rails db:migrate:primary
   run api rails db:seed
 )
