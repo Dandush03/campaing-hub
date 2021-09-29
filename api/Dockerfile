@@ -15,7 +15,7 @@ ARG RAILS_ENV
 COPY Gemfile* ./
 
 RUN bundle install
-RUN yarn install
+RUN yarn
 
 COPY . .
 
