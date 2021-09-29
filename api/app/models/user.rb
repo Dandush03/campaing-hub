@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < AppUser
+  attr_writer :login
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,6 +12,7 @@ class User < AppUser
 
   has_one :contact, class_name: 'Contact', foreign_key: 'user_id'
 
+  # Login With Username or email
   def login
     @login || username || email
   end
