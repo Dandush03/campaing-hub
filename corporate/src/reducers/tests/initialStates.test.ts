@@ -1,4 +1,4 @@
-import reducers, { userReducer, loadingReducer } from '../../reducers';
+import reducers, { userReducer, loadingReducer } from '..';
 
 test('return the initial state', () => {
   expect(reducers(undefined, <any>{})).toEqual({

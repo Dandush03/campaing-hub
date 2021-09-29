@@ -5,12 +5,14 @@ import {
   BrowserRouter, Switch, Route,
 } from 'react-router-dom';
 
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import storeConfig from './store';
 import Layout from './layout';
 
 import './i18n';
+import Campaigns from './pages/campaigns';
+import Dashboard from './pages/dashboard';
+import Leads from './pages/leads';
 
 const store = storeConfig();
 
@@ -21,7 +23,9 @@ ReactDOM.render(
         <BrowserRouter>
           <Layout>
             <Switch>
-              <Route path="/corporate" exact component={App} />
+              <Route path='/corporate' exact component={Dashboard} />
+              <Route path='/corporate/campaigns' exact component={Campaigns} />
+              <Route path='/corporate/leads' exact component={Leads} />
             </Switch>
           </Layout>
         </BrowserRouter>

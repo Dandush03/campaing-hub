@@ -17,7 +17,7 @@ const Layout:React.FunctionComponent<{children: React.ReactNode}> =({
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(getCurrentUserSession());
+    if (!user.login) dispatch(getCurrentUserSession());
   }, []);
 
   const handleLeftSideMenuClick = () => {
@@ -37,7 +37,7 @@ const Layout:React.FunctionComponent<{children: React.ReactNode}> =({
         open={open}
         handleLeftSideMenuClose={handleLeftSideMenuClick}
       />
-      <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 9 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 11 }}>
         {children}
       </Box>
     </Box>

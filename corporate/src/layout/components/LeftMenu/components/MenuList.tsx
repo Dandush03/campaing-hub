@@ -7,6 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import ListItemButton from '@mui/material/ListItemButton';
+import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { SvgIconProps } from '@mui/material';
@@ -46,9 +47,16 @@ const MenuList: React.FunctionComponent<{}> = ({
       <Divider />
       <List>
         <Item
-          path='/corporate/campaign'
+          path='/corporate/campaigns'
           text={t('campaigns')}
           Icon={CampaignIcon}
+        />
+      </List>
+      <List>
+        <Item
+          path='/corporate/leads'
+          text={t('leads')}
+          Icon={RecentActorsIcon}
         />
       </List>
     </>);
