@@ -128,12 +128,13 @@ ActiveRecord::Schema.define(version: 2021_09_26_204844) do
     t.string "signature", default: "", null: false
     t.string "filename", default: "", null: false
     t.integer "rank", default: 0, null: false
-    t.string "gallery_type", default: "Photo"
-    t.bigint "gallery_id"
+    t.string "media_type"
+    t.string "gallery_type"
+    t.uuid "gallery_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "company_id"
-    t.index ["gallery_type", "gallery_id"], name: "index_visual_media_on_gallery"
+    t.index ["gallery_type", "gallery_id"], name: "index_visual_media_on_gallery_type_and_gallery_id"
   end
 
   add_foreign_key "taggings", "tags"

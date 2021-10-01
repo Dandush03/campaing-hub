@@ -20,7 +20,7 @@ module Api
         end
 
         def campaings
-          @campaings ||= Campaign.all.includes(:labels)
+          @campaings ||= Campaign.all.includes(*%i[labels icon])
         end
       end
     end

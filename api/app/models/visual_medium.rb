@@ -8,4 +8,6 @@ class VisualMedium < Tenant
   validates :filename,  presence: true
   validates :url,       presence: true
   validates :rank,      numericality: true
+
+  scope :media, ->(value) { includes(:gallery).where(media_type: value).order(created_at: :desc).order(:rank) }
 end

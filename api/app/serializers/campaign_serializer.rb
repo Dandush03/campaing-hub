@@ -2,7 +2,11 @@
 
 # Campaign Serializer
 class CampaignSerializer < ActiveModel::Serializer
-  attributes(*%i[id name description token labels])
+  attributes(*%i[id name description token labels icon])
+
+  def icon
+    object.icon.url
+  end
 
   def labels
     object.labels.map(&:name)
@@ -10,7 +14,7 @@ class CampaignSerializer < ActiveModel::Serializer
 
   def self.serialize(campaings)
     ActiveModel::Serializer::CollectionSerializer.new(
-      campaings.includes(:labels),
+      campaings,
       each_serializer: self
     )
   end

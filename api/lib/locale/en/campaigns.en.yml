@@ -1,8 +1,9 @@
 en:
   campaigns:
-    title: 'Campaigns List'
-    id: ID,
-    name: Name,
-    description: Description,
-    token: Token,
-    new: New,
+    title: Campaigns List
+    id: ID
+    name: Name
+    description: Description
+    view: View
+    leads: Created Leads
+    convertion: Convertion Rate

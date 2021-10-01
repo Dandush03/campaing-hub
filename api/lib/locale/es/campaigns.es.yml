@@ -1,8 +1,9 @@
 es:
   campaigns:
-    title: 'Lista de Campañas'
+    title: Lista de Campañas
     id: DI,
     name: Nombre,
-    description: Descripción,
-    token: Token,
-    new: Nuevo,
+    description: Descripción
+    view: View
+    leads: Created Leads
+    convertion: Convertion Rate
