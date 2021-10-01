@@ -2,3 +2,5 @@ en:
   menu:
     dashboard: 'Dashboard'
     campaigns: 'Campaigns'
+    leads: 'Leads'
+    languages: Languages

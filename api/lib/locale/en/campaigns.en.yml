@@ -1,0 +1,8 @@
+en:
+  campaigns:
+    title: 'Campaigns List'
+    id: ID,
+    name: Name,
+    description: Description,
+    token: Token,
+    new: New,

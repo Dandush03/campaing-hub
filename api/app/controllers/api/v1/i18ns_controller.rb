@@ -5,14 +5,8 @@ module Api
     # Translation Controller
     class I18nsController < ApiController
       def show
-        render json: { menu: I18n.t('.menu'), dashboard: I18n.t('.dashboard') }, status: :ok
-        # render json: I18n.t('.'), status: :ok
-      end
-
-      private
-
-      def show_permited_params
-        params.permit(%i[ns lng]).reverse_merge({ ns: 'dashboard', lng: 'en' })
+        I18n.locale = params[:lng] || I18n.default_locale
+        render json: I18n.t(params[:ns]), status: :ok
       end
     end
   end

@@ -1,0 +1,8 @@
+es:
+  campaigns:
+    title: 'Lista de Campañas'
+    id: DI,
+    name: Nombre,
+    description: Descripción,
+    token: Token,
+    new: Nuevo,
