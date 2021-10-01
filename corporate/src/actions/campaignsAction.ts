@@ -6,7 +6,7 @@ import {
 } from '../reducers/loadingReducer';
 import { fetchCampaigns } from '../reducers/campaignsReducer';
 
-const getCurrentUserSession = () => {
+const getCampaingsList = () => {
   const url = '/api/v1/corporate/campaigns';
   return async (dispatch: ThunkDispatch<any, any, AnyAction>) => {
     dispatch(startLoading());
@@ -23,4 +23,4 @@ const getCurrentUserSession = () => {
   };
 };
 
-export { getCurrentUserSession };
+export { getCampaingsList };

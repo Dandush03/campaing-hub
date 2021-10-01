@@ -1,15 +1,6 @@
 export interface Column {
-  id: 'name' | 'code' | 'population' | 'size' | 'density';
-  label: string;
-  minWidth?: number;
+  id: 'id' | 'name' | 'description' | 'view' | 'leads' | 'convertion';
   align?: 'right';
   format?: (value: number) => string;
-}
-
-export interface Data {
-  name: string;
-  code: string;
-  population: number;
-  size: number;
-  density: number;
+  style?: React.CSSProperties | {};
 }

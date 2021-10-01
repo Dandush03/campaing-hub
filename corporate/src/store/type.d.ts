@@ -16,6 +16,10 @@ export interface Campaign {
   description: string,
   token: string,
   labels: string[],
+  image?: string,
+  view?: string,
+  leads?: number,
+  convertion?: number,
 }
 
 export interface initialState {

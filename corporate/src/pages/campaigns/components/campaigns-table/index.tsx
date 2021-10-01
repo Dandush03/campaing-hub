@@ -1,20 +1,18 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
-import { Column, Data } from './type';
 import CampaignsTableHeader from './CampaignsTableHeader';
-import CampaignsTableRow from './CampaignsTableRow';
-
+import CampaignsTableBody from './CampaignsTableBody';
+import { Campaign } from '../../../../store/type';
+import columns from './TableColumns';
 interface CampaignsTableType {
-  rows: Data[],
-  columns: Column[]
+  campaings: Campaign[],
 }
 
 const CampaignsTable: React.FunctionComponent<CampaignsTableType> = ({
-  rows = [], columns = [],
+  campaings = [],
 }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -35,24 +33,17 @@ const CampaignsTable: React.FunctionComponent<CampaignsTableType> = ({
       <TableContainer sx={{ maxHeight: 'calc(100vh - 64px)' }}>
         <Table stickyHeader aria-label="sticky table">
           <CampaignsTableHeader columns={columns} />
-          <TableBody>
-            {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <CampaignsTableRow
-                      columns={columns}
-                      row={row}
-                      key={`${row.code}`}/>
-                  );
-                })}
-          </TableBody>
+          <CampaignsTableBody
+            campaings={campaings}
+            currentPage={page * rowsPerPage}
+            rowsNumber={page * rowsPerPage + rowsPerPage}
+          />
         </Table>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={campaings.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
