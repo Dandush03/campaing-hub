@@ -2,7 +2,7 @@
 
 class CreateCampaigns < ActiveRecord::Migration[6.1]
   def up
-    create_rls_table :campaigns do |t|
+    create_rls_table :campaigns, id: :uuid do |t|
       t.string :name
       t.string :description
       t.string :token
