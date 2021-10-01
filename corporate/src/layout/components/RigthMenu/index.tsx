@@ -3,12 +3,12 @@ import { styled, Theme, CSSObject } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 
-import { LEFT_DRAWER_WIDTH } from '../../utils';
+import { RIGTH_DRAWER_WIDTH } from '../../utils';
 import DrawerHeader from './components/DrawerHeader';
 import MenuList from './components/MenuList';
 
 const openedMixin = (theme: Theme): CSSObject => ({
-  width: LEFT_DRAWER_WIDTH,
+  width: RIGTH_DRAWER_WIDTH,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -22,16 +22,17 @@ const closedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: '0',
+  border: '0',
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(9)} + 1px)`,
+    width: '0',
   },
 });
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) =>
   prop !== 'open' })(
     ({ theme, open }) => ({
-      width: LEFT_DRAWER_WIDTH,
+      width: RIGTH_DRAWER_WIDTH,
       flexShrink: 0,
       whiteSpace: 'nowrap',
       boxSizing: 'border-box',
@@ -46,21 +47,24 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) =>
     }),
 );
 
-interface LeftMenuType {
-  handleLeftSideMenuClose: (e?: boolean) => void,
+interface RigthMenuType {
+  handleRigthSideMenuClose: () => void,
   open?: boolean,
 }
 
-const LeftMenu: React.FunctionComponent<LeftMenuType> = ({
-  handleLeftSideMenuClose, open = false,
+const RigthMenu: React.FunctionComponent<RigthMenuType> = ({
+  handleRigthSideMenuClose, open = false,
 }) => {
   return (
-    <Drawer variant="permanent" open={open}>
-      <DrawerHeader handleLeftSideMenuClose={handleLeftSideMenuClose}/>
+    <Drawer
+      variant="permanent"
+      open={open}
+      anchor='right'>
+      <DrawerHeader handleRigthSideMenuClose={handleRigthSideMenuClose}/>
       <Divider />
       <MenuList />
     </Drawer>
   );
 };
 
-export default LeftMenu;
+export default RigthMenu;

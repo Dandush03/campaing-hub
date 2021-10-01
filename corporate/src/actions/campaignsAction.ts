@@ -4,22 +4,20 @@ import axios from 'axios';
 import {
   removeLoadingState, resetLoading, startLoading,
 } from '../reducers/loadingReducer';
-import { getCurrentUser } from '../reducers/userReducer';
+import { fetchCampaigns } from '../reducers/campaignsReducer';
 
 const getCurrentUserSession = () => {
-  const url = '/api/v1/corporate';
+  const url = '/api/v1/corporate/campaigns';
   return async (dispatch: ThunkDispatch<any, any, AnyAction>) => {
     dispatch(startLoading());
     axios
         .get(url)
         .then(({ data }) => {
-          dispatch(getCurrentUser(data));
+          dispatch(fetchCampaigns(data));
         })
         .then(() => dispatch(removeLoadingState()))
-        .catch(({ response }) => {
-          if (response && response.status === 401) {
-            window.location.href = '/users/sign_in';
-          }
+        .catch(({ response: { status } }) => {
+          if (status === 401) window.location.href = '/users/sign_in';
           return dispatch(resetLoading());
         });
   };

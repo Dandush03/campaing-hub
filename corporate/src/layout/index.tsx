@@ -7,11 +7,13 @@ import LeftMenu from './components/LeftMenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUserSession } from '../actions/userAction';
 import { RootState } from '../store/type';
+import RigthMenu from './components/RigthMenu';
 
 const Layout:React.FunctionComponent<{children: React.ReactNode}> =({
   children,
 }) => {
-  const [open, setOpen] = React.useState(false);
+  const [openLeft, setOpenLeft] = React.useState(false);
+  const [openRight, setOpenRight] = React.useState(false);
   const user = useSelector((state: RootState) => state.user);
 
   const dispatch = useDispatch();
@@ -21,26 +23,52 @@ const Layout:React.FunctionComponent<{children: React.ReactNode}> =({
   }, []);
 
   const handleLeftSideMenuClick = () => {
-    setOpen(!open);
+    setOpenLeft(!openLeft);
+    setOpenRight(false);
+  };
+
+  const handleRigthSideMenuClick = () => {
+    setOpenRight(!openRight);
+    setOpenLeft(false);
+  };
+
+  const handleCloseAllMenus = () => {
+    setOpenLeft(false);
+    setOpenRight(false);
   };
 
   if (!user.login) return <div></div>;
 
   return (
-    <Box sx={{ display: 'flex' }} maxWidth={'100vw'} overflow='hidden'>
-      <CssBaseline />
-      <Header
-        open={open}
-        handleLeftSideMenuOpen={handleLeftSideMenuClick}
-      />
-      <LeftMenu
-        open={open}
-        handleLeftSideMenuClose={handleLeftSideMenuClick}
-      />
-      <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 11 }}>
-        {children}
+    <React.Suspense fallback="loading">
+      <Box
+        sx={{ display: 'flex' }}
+        position='absolute'
+        width='100%'
+        overflow='hidden'>
+        <CssBaseline />
+        <Header
+          openLeft={openLeft}
+          openRight={openRight}
+          handleLeftSideMenuOpen={handleLeftSideMenuClick}
+          handleRigthSideMenuOpen={handleRigthSideMenuClick}
+        />
+        <LeftMenu
+          open={openLeft}
+          handleLeftSideMenuClose={handleLeftSideMenuClick}
+        />
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, p: 0, pt: 8 }}
+          onClickCapture={handleCloseAllMenus}>
+          {children}
+        </Box>
+        <RigthMenu
+          open={openRight}
+          handleRigthSideMenuClose={handleRigthSideMenuClick}
+        />
       </Box>
-    </Box>
+    </React.Suspense>
   );
 };
 

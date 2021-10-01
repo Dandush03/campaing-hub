@@ -3,34 +3,36 @@ import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
-const FALLBACK_LANGUAGE = 'en';
+const SUPPORTED_LANGUAGES = ['en', 'es'];
+const NAMESPACES = [
+  'dashboard', 'menu', 'campaigns',
+];
 
-const loadPath = `/api/v1/i18n.json`;
+const loadPath =
+  `/api/v1/i18n.json?lng={{lng}}&ns={{ns}}`;
 
 i18n
     .use(Backend)
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-      ns: ['menu', 'dashboard'],
+      ns: NAMESPACES,
       defaultNS: 'dashboard',
       supportedLngs: ['en', 'es'],
-      fallbackLng: FALLBACK_LANGUAGE,
+      fallbackLng: SUPPORTED_LANGUAGES[0],
       backend: {
         loadPath: loadPath,
         addPath: loadPath,
         allowMultiLoading: true,
-        parse: (data, lang, namespace: string) => JSON.parse(data)[namespace],
       },
       saveMissing: true,
       react: {
-        useSuspense: false,
-        wait: true,
+        useSuspense: true,
       },
       interpolation: {
         escapeValue: false,
       },
-      lng: 'en',
+      lng: SUPPORTED_LANGUAGES[0],
     });
 
 export default i18n;

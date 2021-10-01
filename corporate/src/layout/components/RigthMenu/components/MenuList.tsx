@@ -4,10 +4,8 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import CampaignIcon from '@mui/icons-material/Campaign';
 import ListItemButton from '@mui/material/ListItemButton';
-import RecentActorsIcon from '@mui/icons-material/RecentActors';
+import TranslateIcon from '@mui/icons-material/Translate';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { SvgIconProps } from '@mui/material';
@@ -16,6 +14,11 @@ interface ItemType {
   path?: string,
   text: string,
   Icon: (props: SvgIconProps) => JSX.Element;
+}
+
+interface LangItemType {
+  lngCode: string,
+  text: string,
 }
 
 const Item: React.FunctionComponent<ItemType> = ({
@@ -29,7 +32,28 @@ const Item: React.FunctionComponent<ItemType> = ({
       <ListItemText primary={text} />
     </ListItemButton>
   </ListItem> :
-  null;
+  <ListItem>
+    <ListItemIcon>
+      <Icon />
+    </ListItemIcon>
+    <ListItemText primary={text} />
+  </ListItem>;
+
+const LanguageItem: React.FunctionComponent<LangItemType> = ({
+  text, lngCode,
+}) => {
+  const { i18n } = useTranslation();
+  const changeLanguage: () => void = () => {
+    i18n.changeLanguage(lngCode);
+  };
+  return (
+    <ListItem disablePadding>
+      <ListItemButton onClick={changeLanguage}>
+        <ListItemText primary={text} />
+      </ListItemButton>
+    </ListItem>
+  );
+};
 
 
 const MenuList: React.FunctionComponent<{}> = ({
@@ -39,22 +63,19 @@ const MenuList: React.FunctionComponent<{}> = ({
     <>
       <List>
         <Item
-          path='/corporate'
-          text={t('dashboard')}
-          Icon={DashboardIcon}
+          text={t('languages')}
+          Icon={TranslateIcon}
         />
       </List>
       <Divider />
       <List>
-        <Item
-          path='/corporate/campaigns'
-          text={t('campaigns')}
-          Icon={CampaignIcon}
+        <LanguageItem
+          text='English'
+          lngCode='en'
         />
-        <Item
-          path='/corporate/leads'
-          text={t('leads')}
-          Icon={RecentActorsIcon}
+        <LanguageItem
+          text='Español'
+          lngCode='es'
         />
       </List>
     </>);

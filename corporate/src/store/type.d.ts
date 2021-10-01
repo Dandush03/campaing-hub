@@ -10,6 +10,15 @@ export interface Contact {
   login: boolean = false
 }
 
+export interface Campaign {
+  id: string,
+  name: string,
+  description: string,
+  token: string,
+  labels: string[],
+}
+
 export interface initialState {
   user: contact | null
+  campaigns: Campaign[]
 }
