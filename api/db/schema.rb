@@ -106,10 +106,10 @@ ActiveRecord::Schema.define(version: 20_210_926_204_844) do
     t.datetime 'updated_at', precision: 6, null: false
     t.uuid 'company_id'
     t.index ['confirmation_token'], name: 'index_users_on_confirmation_token', unique: true
-    t.index ['email'], name: 'index_users_on_email', unique: true
+    t.index ['email'], name: 'index_users_on_email'
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
     t.index ['unlock_token'], name: 'index_users_on_unlock_token', unique: true
-    t.index ['username'], name: 'index_users_on_username', unique: true
+    t.index ['username'], name: 'index_users_on_username'
   end
 
   create_table 'versions', force: :cascade do |t|

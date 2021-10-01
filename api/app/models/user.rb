@@ -12,7 +12,10 @@ class User < Tenant
 
   has_one :contact, class_name: 'Contact', foreign_key: 'user_id'
 
-  # Login With Username or email
+  # Allow same email for diferent tenant
+  validates :email, presence: true, uniqueness: { case_sensitive: true, scope: :company_id }
+
+  # Login With Username or email by tenant
   def login
     @login || username || email
   end

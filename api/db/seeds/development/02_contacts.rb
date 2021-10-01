@@ -5,35 +5,34 @@ Company.all.each_with_index do |company, index|
   break if User.any? && Contact.any?
 
   puts "Seeding Contacts in #{Rails.env.capitalize}" if index.zero?
-  test_company = index.zero? ? '' : '_test'
   super_admin_user = User.create_with(
     {
-      username: "dandush#{test_company}",
+      username: 'dandush',
       password: '123123',
       password_confirmation: '123123'
     }
-  ).find_or_create_by(email: "d.laloush#{test_company}@outlook.com")
+  ).find_or_create_by(email: 'd.laloush@outlook.com')
 
   super_admin_user.create_contact!(
     {
-      firstname: "Daniel#{test_company}",
-      lastname: "Laloush#{test_company}",
+      firstname: 'Daniel',
+      lastname: 'Laloush',
       contact_type: 'super_admin'
     }
   )
 
   advocate = User.create_with(
     {
-      username: "demo#{test_company}",
+      username: 'demo',
       password: '123123',
       password_confirmation: '123123'
     }
-  ).find_or_create_by(email: "demo#{test_company}@demo.com")
+  ).find_or_create_by(email: 'demo@demo.com')
 
   advocate.create_contact(
     {
-      firstname: "Demo#{test_company}",
-      lastname: "First#{test_company}",
+      firstname: 'Demo',
+      lastname: 'First',
       contact_type: 'advocate'
     }
   )
