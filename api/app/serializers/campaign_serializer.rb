@@ -5,7 +5,7 @@ class CampaignSerializer < ActiveModel::Serializer
   attributes(*%i[id name description token labels icon])
 
   def icon
-    object.icon.url
+    object.icon&.url
   end
 
   def labels
