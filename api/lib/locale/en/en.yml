@@ -30,33 +30,6 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  side_menu:
-    articles: [
-        {title: Articles}, 
-        {name: Articles, path: articles, add: true}, 
-        {name: Groups, path: articles/groups, add: true}
-      ]
-    banking: [
-        {title: Banking, path: banking}, 
-      ]
-    exchange: [
-        {title: Exchanges, path: exchange}, 
-      ]
-    sales: [
-        {title: Sales}, 
-        {name: Customers, path: clients, add: true}, 
-        {name: Invoices, path: invoices, add: true}, 
-      ]
-  exchange_warning: Exchange Rate is Outdated,
-  toast: {
-    fatal_error: {
-      type: 'error',
-      message: 'An error has occurred, please contact your administrator',
-    },
-    sign_out_user: {
-      type: 'info',
-      message: 'The session has been closed successfully',
-    },
-  }
+  or: Or
 
       

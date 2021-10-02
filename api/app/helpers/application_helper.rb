@@ -2,4 +2,5 @@
 
 # Main Module Helper
 module ApplicationHelper
+  include Devise::DeviseHelper
 end

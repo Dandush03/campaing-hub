@@ -1,0 +1,61 @@
+<div class="session">
+  <div class="wrapper">
+    <div class="info">
+      <h2><%= "#{t('.welcome')} #{Company.current.name}!" %></h2>
+      <p><%= t('.welcome_text')%></p>
+      <p><%= t('.community_messsage')%></p>
+    </div>
+    <div class="form">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="errors login">
+          <% if notice %>
+            <p><%= notice %></p>
+          <% end %>
+          <% if alert %>
+            <p><%= alert %></p>
+          <% end %>
+        </div>
+
+        <div class="field">
+          <%= f.label :login, require: true %>
+          <%= f.text_field :login, autofocus: true, autocomplete: t('.login') %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password, require: true %>
+          <%= f.password_field :password, autocomplete: "current-password" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="button-field">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end %>
+
+        <div class="actions">
+          <%= f.submit %>
+
+          <div class="line">
+            <div class="break-line"></div><%= t('or') %><div class="break-line"></div>
+          </div>
+
+          <div class="omniauth">
+            <% resource_class.omniauth_providers.each do |provider| %>
+              <% provider_name = humanize_provider(provider) %>
+              <%= button_to(
+                "#{t('.sign_in_with')} #{provider_name}", 
+                omniauth_authorize_path(resource_name, provider),
+                method: :post,
+                title: t('.comming_soon'),
+                class: provider_name.downcase
+              ) %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <%#= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

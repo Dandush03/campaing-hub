@@ -1,0 +1,17 @@
+es:
+  devise:
+    sessions:
+      new:
+        login: Acceso
+        sign_in_with: Continua con
+        comming_soon: En desarrollo
+        welcome: Bienvenido a
+        welcome_text: Estamos muy emocionados de verte aqui nuevamente. Entra ahora y encuentra las novedades de tus campañìa.
+        community_messsage: ¡No olvides dar a conocer nuestros excelentes servicios, para que nuestro esfuerzo y el tuyo sean reconocidos a través de diferentes plataformas!
+    shared:
+      links:
+        log_in: Iniciar session
+        sign_up: Registrate
+        forgot_your_password: ¿Se te olvido la contraseña?
+        receive_confirmation_instructions: ¿No resivistes instruciones de confirmacions?
+        receive_unlock_instructions: ¿No resivistes instruciones de desbloqueo?

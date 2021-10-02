@@ -7,7 +7,8 @@ class User < Tenant
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :lockable, :timeoutable, :trackable,
+         :lockable, :timeoutable, :trackable, :omniauthable,
+         omniauth_providers: %i[google_oauth2 linkedin facebook],
          authentication_keys: %i[login]
 
   has_one :contact, class_name: 'Contact', foreign_key: 'user_id'

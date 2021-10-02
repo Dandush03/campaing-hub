@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 TYPES = %w[icon background logo picture].freeze
 
 FactoryBot.define do

@@ -14,5 +14,7 @@ class ApplicationController < ActionController::Base
 
   def switch_tenant
     Tenant.switch request.subdomain
+  rescue NoMethodError
+    redirect_to '/'
   end
 end

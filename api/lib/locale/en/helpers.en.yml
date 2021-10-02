@@ -1,0 +1,10 @@
+es:
+  helpers:
+    submit:
+      user:
+        create: Login
+    label:
+      user:
+        login: Login
+        password: Password
+        remember_me: remember me

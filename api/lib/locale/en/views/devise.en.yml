@@ -1,0 +1,17 @@
+es:
+  devise:
+    sessions:
+      new:
+        login: Acceso
+        sign_in_with: Continue with
+        comming_soon: Comming Soon
+        welcome: Welcome to
+        welcome_text: We're very excited that you're here. Log in now to see what's waiting for you!
+        community_messsage: Do not forget to spread the word about our excellent services, so that our effort and yours are recognized through different platforms!
+    shared:
+      links:
+        log_in: Log in
+        sign_up: Sign up
+        forgot_your_password: Forgot your password?
+        receive_confirmation_instructions: Didn't receive confirmation instructions?
+        receive_unlock_instructions: Didn't receive unlock instructions?
