@@ -4,6 +4,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Column } from './type';
 import { useTranslation } from 'react-i18next';
+import { Typography } from '@mui/material';
+import { BrowserView, MobileView } from 'react-device-detect';
 
 interface CampaignsTableHeaderType {
   columns: Column[]
@@ -17,15 +19,26 @@ const CampaignsTableHeader:
     return (
       <TableHead>
         <TableRow>
-          {columns.map((column) => (
+          <BrowserView renderWithFragment>
+            {columns.map((column) => (
+              <TableCell
+                key={column.id}
+                align={column.align}
+                style={{ top: 0, ...column.style }}
+              >
+                <Typography>{t(column.id)}</Typography>
+              </TableCell>
+            ))}
+          </BrowserView>
+          <MobileView renderWithFragment>
             <TableCell
-              key={column.id}
-              align={column.align}
-              style={{ top: 0, ...column.style }}
+              key={columns[1].id}
+              align={columns[1].align}
+              style={{ top: 0, ...columns[1].style }}
             >
-              {t(column.id)}
+              <Typography>{t(columns[1].id)}</Typography>
             </TableCell>
-          ))}
+          </MobileView>
         </TableRow>
       </TableHead>
     );

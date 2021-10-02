@@ -7,6 +7,7 @@ export interface Contact {
   name?: string
   username?: string
   email?: string
+  picture?: string
   login: boolean = false
 }
 
@@ -16,7 +17,7 @@ export interface Campaign {
   description: string,
   token: string,
   labels: string[],
-  image?: string,
+  icon?: string,
   view?: string,
   leads?: number,
   convertion?: number,

@@ -2,7 +2,7 @@ import { Column } from './type';
 
 const columns: Column[] = [
   { id: 'id', style: { display: 'none' } },
-  { id: 'name', style: { minWidth: 100 } },
+  { id: 'name', style: { minWidth: 335 } },
   { id: 'description', style: { minWidth: 100 } },
   { id: 'view', style: { minWidth: 100 } },
   { id: 'leads',
