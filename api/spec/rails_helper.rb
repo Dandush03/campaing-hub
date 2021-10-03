@@ -81,12 +81,19 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
+    FactoryBot.create(:company, subdomain: 'app')
+    Tenant.switch :app
   end
   # start the transaction strategy as examples are run
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
       example.run
     end
+  end
+
+  config.before(:each, type: :request) do |context|
+    host! "#{Company.first.subdomain}.example.com"
+    sign_in(corporate.user) unless context.metadata[:without_user]
   end
 
   # Bullet Gem

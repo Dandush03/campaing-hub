@@ -3,7 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Campaign, type: :model do
-  it { should have_many(:visual_medium) }
+  it { should have_many(:visual_media) }
+
+  it { should have_one(:icon) }
+  it { should have_one(:logo) }
+  it { should have_one(:background) }
 
   it { should validate_presence_of(:name) }
 

@@ -5,10 +5,6 @@ require 'rails_helper'
 RSpec.describe 'Api::V1::Corporate::Campaigns', type: :request do
   let(:corporate) { FactoryBot.create(:corporate) }
 
-  before(:each) do |context|
-    sign_in(corporate.user) unless context.metadata[:without_user]
-  end
-
   describe 'GET /index' do
     let!(:list_of_campaings) { FactoryBot.create_list(:campaign, 3) }
     let(:params) do
@@ -18,7 +14,8 @@ RSpec.describe 'Api::V1::Corporate::Campaigns', type: :request do
           'name' => campaign.name,
           'description' => campaign.description,
           'token' => campaign.token,
-          'label_list' => campaign.label_list
+          'icon' => nil,
+          'labels' => campaign.label_list
         }
       end
     end
@@ -36,7 +33,6 @@ RSpec.describe 'Api::V1::Corporate::Campaigns', type: :request do
         expect(JSON.parse(body)).to eq(params)
       end
     end
-
-    pending "add some examples (or delete) #{__FILE__}"
   end
+  pending "add some examples (or delete) #{__FILE__}"
 end
