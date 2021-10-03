@@ -9,18 +9,17 @@ import { isDesktop } from 'react-device-detect';
 
 interface CampaignsTableHeaderType {
   columns: Column[]
-  extended: Boolean
 }
 
 const CampaignsTableHeader:
   React.FunctionComponent<CampaignsTableHeaderType> = ({
-    columns, extended,
+    columns,
   }) => {
     const { t } = useTranslation('campaigns');
     return (
       <TableHead>
         <TableRow>
-          {isDesktop && extended ? columns.map((column) => (
+          {isDesktop ? columns.map((column) => (
             <TableCell
               key={column.id}
               align={column.align}

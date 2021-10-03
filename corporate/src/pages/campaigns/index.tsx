@@ -4,11 +4,23 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
+import {
+  Switch, Route, RouteComponentProps,
+} from 'react-router-dom';
 
 import CampaignsTable from './components/campaigns-table';
+import CampaignViewer from './components/campaign-viewer';
 import { RootState, Campaign } from '../../store/type';
 import { getCampaingsList } from '../../actions/campaignsAction';
+
+interface MatchParams {
+  campaignId?: string
+}
+export interface MatchProps extends RouteComponentProps<MatchParams>{
+}
+
 interface CampaignsType {
+  route: MatchProps,
 }
 
 interface CustomCollapseType extends CollapseProps {
@@ -34,7 +46,9 @@ const CustomCollapse = styled(
 );
 
 const Campaigns: React.FunctionComponent<CampaignsType> = ({
+  route,
 }) => {
+  const campaignId = route.location.pathname.split('/').pop();
   const campaings:Campaign[] = useSelector(
       (state: RootState) => state.campaigns,
   );
@@ -45,10 +59,18 @@ const Campaigns: React.FunctionComponent<CampaignsType> = ({
     if (campaings.length === 0) dispatch(getCampaingsList());
   }, []);
 
+  React.useEffect(() => {
+    campaignId === 'campaigns' && setExtended(true);
+  }, [route]);
+
+  const handleCurrentSelection = (campaignId?: string) => {
+    if (campaignId) setExtended(false);
+  };
+
   const { t } = useTranslation('campaigns');
 
   return (
-    <Box onClick={() => setExtended(!extended)}>
+    <Box>
       <CustomCollapse orientation="horizontal"
         in={extended}
         extended={extended}
@@ -59,10 +81,20 @@ const Campaigns: React.FunctionComponent<CampaignsType> = ({
           </Typography>
           <CampaignsTable
             campaings={campaings}
-            extended={extended}
-            handleExtend={() => setExtended(!extended)}/>
+            extended={extended}/>
         </Box>
       </CustomCollapse>
+      <Switch>
+        <Route
+          path='/corporate/campaigns/:campaignId'
+          exact
+          render={
+            (route: MatchProps) =>
+              <CampaignViewer
+                route={route}
+                handleCurrentSelection={handleCurrentSelection}/>
+          }/>
+      </Switch>
     </Box>
   );
 };

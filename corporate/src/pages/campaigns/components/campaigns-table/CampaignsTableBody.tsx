@@ -7,11 +7,10 @@ interface CampaignsTableBodyType {
   campaings: Campaign[],
   currentPage: number,
   rowsNumber: number,
-  extended: boolean
 }
 
 const CampaignsTableBody: React.FunctionComponent<CampaignsTableBodyType> = ({
-  campaings, currentPage, rowsNumber, extended,
+  campaings, currentPage, rowsNumber,
 }) => {
   return (
     <TableBody>
@@ -21,8 +20,7 @@ const CampaignsTableBody: React.FunctionComponent<CampaignsTableBodyType> = ({
             return (
               <CampaignsTableRow
                 row={row}
-                key={`row-${row.id}`}
-                extended={extended}/>
+                key={`row-${row.id}`} />
             );
           })}
     </TableBody>

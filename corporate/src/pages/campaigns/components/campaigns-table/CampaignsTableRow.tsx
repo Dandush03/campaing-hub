@@ -7,10 +7,10 @@ import columns from './TableColumns';
 import ColumnName from './ColumnName';
 import { Typography } from '@mui/material';
 import { isDesktop } from 'react-device-detect';
+import { useHistory } from 'react-router-dom';
 
 interface CampaignsTableRowType {
   row: Campaign,
-  extended: boolean
 }
 interface ColumnSelectorType {
   column: Column,
@@ -36,24 +36,35 @@ const ColumnSelector: React.FunctionComponent<ColumnSelectorType> = ({
 
 
 const CampaignsTableRow: React.FunctionComponent<CampaignsTableRowType> = ({
-  row, extended,
-}) =>
-  <TableRow
-    hover
-    role="checkbox"
-    tabIndex={-1}
-    key={row.id}>
-    {isDesktop && extended ? columns.slice(1).map((column) => {
-      return (
-        <TableCell key={column.id} align={column.align}>
-          <ColumnSelector row={row} column={column} />
-        </TableCell>
-      );
-    }):
+  row,
+}) => {
+  const history = useHistory();
+
+  const handleRowClick = () => {
+    history.push(`/corporate/campaigns/${row.id}`);
+  };
+
+  return (
+    <TableRow
+      hover
+      onClick={handleRowClick}
+      role="checkbox"
+      tabIndex={-1}
+      sx={{ textDecoration: 'none' }}
+      key={row.id}>
+      {isDesktop ? columns.slice(1).map((column) => {
+        return (
+          <TableCell key={column.id} align={column.align}>
+            <ColumnSelector row={row} column={column} />
+          </TableCell>
+        );
+      }):
       <TableCell key={columns[0].id} align={columns[0].align} >
         <ColumnName campaign={row} />
       </TableCell>
-    }
-  </TableRow>;
+      }
+    </TableRow>
+  );
+};
 
 export default CampaignsTableRow;

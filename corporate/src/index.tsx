@@ -10,7 +10,7 @@ import storeConfig from './store';
 import Layout from './layout';
 
 import './i18n';
-import Campaigns from './pages/campaigns';
+import Campaigns, { MatchProps } from './pages/campaigns';
 import Dashboard from './pages/dashboard';
 import Leads from './pages/leads';
 
@@ -24,7 +24,9 @@ ReactDOM.render(
           <Layout>
             <Switch>
               <Route path='/corporate' exact component={Dashboard} />
-              <Route path='/corporate/campaigns' exact component={Campaigns} />
+              <Route
+                path='/corporate/campaigns'
+                render={(props: MatchProps) => <Campaigns route={props}/>} />
               <Route path='/corporate/leads' exact component={Leads} />
             </Switch>
           </Layout>
