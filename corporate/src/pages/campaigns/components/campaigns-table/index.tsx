@@ -9,10 +9,12 @@ import { Campaign } from '../../../../store/type';
 import columns from './TableColumns';
 interface CampaignsTableType {
   campaings: Campaign[],
+  extended: boolean,
+  handleExtend: () => void
 }
 
 const CampaignsTable: React.FunctionComponent<CampaignsTableType> = ({
-  campaings = [],
+  campaings = [], extended, handleExtend,
 }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -30,11 +32,12 @@ const CampaignsTable: React.FunctionComponent<CampaignsTableType> = ({
 
   return (
     <Paper sx={{ width: '100%' }}>
-      <TableContainer sx={{ maxHeight: 'calc(100vh - 64px)' }}>
+      <TableContainer sx={{ height: 'calc(100vh - 190px)' }}>
         <Table stickyHeader aria-label="sticky table">
-          <CampaignsTableHeader columns={columns} />
+          <CampaignsTableHeader columns={columns} extended={extended}/>
           <CampaignsTableBody
             campaings={campaings}
+            extended={extended}
             currentPage={page * rowsPerPage}
             rowsNumber={page * rowsPerPage + rowsPerPage}
           />
@@ -46,6 +49,7 @@ const CampaignsTable: React.FunctionComponent<CampaignsTableType> = ({
         count={campaings.length}
         rowsPerPage={rowsPerPage}
         page={page}
+        style={{ padding: 0 }}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
