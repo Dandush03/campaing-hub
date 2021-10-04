@@ -15,4 +15,9 @@ RSpec.describe Campaign, type: :model do
   it { should validate_length_of(:description).is_at_least(3).is_at_most(255).allow_blank }
 
   it { should have_secure_token(:token) }
+
+  describe 'translatable multilingual' do
+    include_examples 'translatable_fields', :campaign, :name
+    include_examples 'translatable_fields', :campaign, :description
+  end
 end

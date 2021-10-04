@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Campaign < Tenant
+  include Multilingual::Translatable
+  translatable_fields :description, :name
+
   has_many :visual_media, as: :gallery, dependent: :destroy
 
   has_one :icon, -> { media('icon') }, class_name: 'VisualMedium', as: :gallery

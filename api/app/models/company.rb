@@ -5,6 +5,7 @@ class Company < ApplicationRecord
   has_many :campaigns, class_name: 'Campaign', foreign_key: 'company_id', dependent: :destroy
   has_many :visual_media, class_name: 'VisualMedium', foreign_key: 'company_id', dependent: :destroy
   has_many :contacts, class_name: 'Contact', foreign_key: 'company_id', dependent: :destroy
+  has_one :company_preference, dependent: :destroy
 
   has_secure_token :identification, length: 32
 
