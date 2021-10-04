@@ -4,6 +4,6 @@ es:
     id: DI,
     name: Nombre
     description: Descripción
-    view: View
-    leads: Created Leads
-    convertion: Convertion Rate
+    view: Vistas
+    leads: Nuevas Pistas
+    convertion: Tasa de Conversion

@@ -10,9 +10,15 @@ const NameColumn: React.FunctionComponent<NameColumnType> = ({
   <Box display={'flex'}>
     <Box mr={2}>
       <Avatar
+        variant='rounded'
         alt={campaign.name}
         src={campaign.icon}
-        sx={{ width: 45, height: 45 }}
+        sx={{
+          width: 50,
+          height: 50,
+          border: '3px solid',
+          borderColor: 'primary.light',
+        }}
       />
     </Box>
     <Box>
