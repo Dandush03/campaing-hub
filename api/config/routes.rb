@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 
     namespace :api, defaults: { format: :json } do
       namespace :v1 do
-        resource :i18n, only: %i[show]
+        resource :i18n, only: %i[show update]
+        resources :csrf, only: %i[index]
       end
     end
   end

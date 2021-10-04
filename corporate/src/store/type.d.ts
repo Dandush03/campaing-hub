@@ -2,6 +2,8 @@ import store from '.';
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+
+export type CSRF = string | null
 export interface Contact {
   type?: string
   name?: string
@@ -25,5 +27,7 @@ export interface Campaign {
 
 export interface initialState {
   user: contact | null
+  csrf: CSRF
+  loading: number
   campaigns: Campaign[]
 }

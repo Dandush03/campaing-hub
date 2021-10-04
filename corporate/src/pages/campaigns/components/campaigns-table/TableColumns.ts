@@ -1,6 +1,6 @@
-import { Column } from './type';
+import { ColumnList } from './type';
 
-const columns: Column[] = [
+const columns: ColumnList = [
   { id: 'id', style: { display: 'none' } },
   { id: 'name', style: { minWidth: 350 } },
   { id: 'description', style: { minWidth: 100 } },

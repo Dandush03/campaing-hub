@@ -2,14 +2,10 @@ import * as React from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Column } from './type';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import { isDesktop } from 'react-device-detect';
-
-interface CampaignsTableHeaderType {
-  columns: Column[]
-}
+import { CampaignsTableHeaderType } from './type';
 
 const CampaignsTableHeader:
   React.FunctionComponent<CampaignsTableHeaderType> = ({

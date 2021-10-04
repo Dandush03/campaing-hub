@@ -9,11 +9,16 @@ const NAMESPACES = [
 ];
 
 const loadPath =
-  `/api/v1/i18n.json?lng={{lng}}&ns={{ns}}`;
+  '/api/v1/i18n.json?lng={{lng}}&ns={{ns}}';
+
+
+const languageDetector = new LanguageDetector(null, {
+  lookupCookie: 'lng',
+});
 
 i18n
     .use(Backend)
-    .use(LanguageDetector)
+    .use(languageDetector)
     .use(initReactI18next)
     .init({
       ns: NAMESPACES,
@@ -32,7 +37,6 @@ i18n
       interpolation: {
         escapeValue: false,
       },
-      lng: SUPPORTED_LANGUAGES[0],
     });
 
 export default i18n;

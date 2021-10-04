@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
     @current_company ||= Company.current
   end
 
+  def current_contact
+    @current_contact ||= current_user&.contact
+  end
+
   protected
 
   def switch_tenant
@@ -24,6 +28,7 @@ class ApplicationController < ActionController::Base
   def switch_locale(&action)
     locale = current_contact.preference.locale if current_user
     locale ||= CompanyPreference.instance.default_locale
+    cookies[:lng] = locale
     logger.debug "* Locale set to '#{locale}'"
     I18n.with_locale(locale, &action)
   end

@@ -2,7 +2,7 @@ es:
   campaigns:
     title: Lista de Campañas
     id: DI,
-    name: Nombre,
+    name: Nombre
     description: Descripción
     view: View
     leads: Created Leads

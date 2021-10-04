@@ -4,6 +4,7 @@ export default <initialState> {
   user: {
     login: false,
   },
+  csrf: null,
   campaigns: [],
   loading: 0,
 };

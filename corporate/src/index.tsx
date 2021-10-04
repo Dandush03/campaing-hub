@@ -14,8 +14,7 @@ import Campaigns, { MatchProps } from './pages/campaigns';
 import Dashboard from './pages/dashboard';
 import Leads from './pages/leads';
 
-const store = storeConfig();
-
+export const store = storeConfig();
 
 ReactDOM.render(
     <React.StrictMode>

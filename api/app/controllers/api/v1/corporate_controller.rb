@@ -8,10 +8,6 @@ module Api
       before_action :authenticate_user!
       before_action :set_paper_trail_whodunnit
 
-      def current_contact
-        @current_contact ||= current_user.contact
-      end
-
       before_action :configure_permitted_parameters, if: :devise_controller?
 
       protected

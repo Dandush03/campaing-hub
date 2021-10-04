@@ -5,12 +5,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import CampaignsTableHeader from './CampaignsTableHeader';
 import CampaignsTableBody from './CampaignsTableBody';
-import { Campaign } from '../../../../store/type';
 import columns from './TableColumns';
-interface CampaignsTableType {
-  campaings: Campaign[],
-  extended: boolean,
-}
+import { CampaignsTableType } from './type';
+
 
 const CampaignsTable: React.FunctionComponent<CampaignsTableType> = ({
   campaings = [], extended,

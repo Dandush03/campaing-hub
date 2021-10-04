@@ -9,6 +9,7 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { SvgIconProps } from '@mui/material';
+import { setLocale } from '../../../../actions/i18nAction';
 
 interface ItemType {
   path?: string,
@@ -44,7 +45,9 @@ const LanguageItem: React.FunctionComponent<LangItemType> = ({
 }) => {
   const { i18n } = useTranslation();
   const changeLanguage: () => void = () => {
+    if (i18n.language === lngCode) return;
     i18n.changeLanguage(lngCode);
+    setLocale(lngCode);
   };
   return (
     <ListItem disablePadding>

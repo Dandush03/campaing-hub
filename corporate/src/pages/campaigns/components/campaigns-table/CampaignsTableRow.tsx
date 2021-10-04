@@ -1,21 +1,15 @@
 import * as React from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { Campaign } from '../../../../store/type';
-import { Column } from './type';
+import {
+  CampaignsTableRowType, ColumnSelectorType,
+} from './type';
 import columns from './TableColumns';
 import ColumnName from './ColumnName';
 import { Typography } from '@mui/material';
 import { isDesktop } from 'react-device-detect';
 import { useHistory } from 'react-router-dom';
 
-interface CampaignsTableRowType {
-  row: Campaign,
-}
-interface ColumnSelectorType {
-  column: Column,
-  row: Campaign,
-}
 const ColumnSelector: React.FunctionComponent<ColumnSelectorType> = ({
   row, column,
 }) => {
