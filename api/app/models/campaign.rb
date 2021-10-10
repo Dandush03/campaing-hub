@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Campaign < Tenant
+class Campaign < ApplicationRecord
   include Multilingual::Translatable
   translatable_fields :description, :name
 

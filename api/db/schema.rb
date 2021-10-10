@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20_211_004_015_614) do
     t.string 'token'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.uuid 'company_id'
+    t.uuid 'tenant_id'
     t.index ['token'], name: 'index_campaigns_on_token', unique: true
   end
 
@@ -35,19 +35,22 @@ ActiveRecord::Schema.define(version: 20_211_004_015_614) do
     t.string 'lang', default: 'en', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.uuid 'tenant_id', default: -> { 'gen_random_uuid()' }
     t.index ['domain'], name: 'index_companies_on_domain', unique: true
     t.index ['identification'], name: 'index_companies_on_identification', unique: true
     t.index ['name'], name: 'index_companies_on_name', unique: true
     t.index ['subdomain'], name: 'index_companies_on_subdomain', unique: true
+    t.index ['tenant_id'], name: 'companies_tenant_id_key', unique: true
   end
 
   create_table 'company_preferences', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
     t.string 'available_locales', default: %w[es en], array: true
     t.string 'default_locale', default: 'en'
+    t.uuid 'company_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.uuid 'company_id'
-    t.index ['company_id'], name: 'index_company_preferences_on_company_id', unique: true
+    t.uuid 'tenant_id'
+    t.index ['company_id'], name: 'index_company_preferences_on_company_id'
   end
 
   create_table 'contact_preferences', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
@@ -55,7 +58,7 @@ ActiveRecord::Schema.define(version: 20_211_004_015_614) do
     t.uuid 'contact_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.uuid 'company_id'
+    t.uuid 'tenant_id'
     t.index ['contact_id'], name: 'index_contact_preferences_on_contact_id'
   end
 
@@ -67,7 +70,7 @@ ActiveRecord::Schema.define(version: 20_211_004_015_614) do
     t.uuid 'user_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.uuid 'company_id'
+    t.uuid 'tenant_id'
     t.index ['user_id'], name: 'index_contacts_on_user_id'
   end
 
@@ -124,7 +127,7 @@ ActiveRecord::Schema.define(version: 20_211_004_015_614) do
     t.string 'uid'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.uuid 'company_id'
+    t.uuid 'tenant_id'
     t.index ['confirmation_token'], name: 'index_users_on_confirmation_token', unique: true
     t.index ['email'], name: 'index_users_on_email'
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
@@ -140,7 +143,7 @@ ActiveRecord::Schema.define(version: 20_211_004_015_614) do
     t.string 'whodunnit'
     t.text 'object'
     t.datetime 'created_at'
-    t.uuid 'company_id'
+    t.uuid 'tenant_id'
     t.index %w[item_type item_id], name: 'index_versions_on_item_type_and_item_id'
   end
 
@@ -155,9 +158,23 @@ ActiveRecord::Schema.define(version: 20_211_004_015_614) do
     t.uuid 'gallery_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.uuid 'company_id'
+    t.uuid 'tenant_id'
     t.index %w[gallery_type gallery_id], name: 'index_visual_media_on_gallery_type_and_gallery_id'
   end
 
+  add_foreign_key 'campaigns', 'companies', column: 'tenant_id', primary_key: 'tenant_id', name: 'fk_companies',
+                                            on_delete: :cascade
+  add_foreign_key 'company_preferences', 'companies', column: 'tenant_id', primary_key: 'tenant_id',
+                                                      name: 'fk_companies', on_delete: :cascade
+  add_foreign_key 'contact_preferences', 'companies', column: 'tenant_id', primary_key: 'tenant_id',
+                                                      name: 'fk_companies', on_delete: :cascade
+  add_foreign_key 'contacts', 'companies', column: 'tenant_id', primary_key: 'tenant_id', name: 'fk_companies',
+                                           on_delete: :cascade
   add_foreign_key 'taggings', 'tags'
+  add_foreign_key 'users', 'companies', column: 'tenant_id', primary_key: 'tenant_id', name: 'fk_companies',
+                                        on_delete: :cascade
+  add_foreign_key 'versions', 'companies', column: 'tenant_id', primary_key: 'tenant_id', name: 'fk_companies',
+                                           on_delete: :cascade
+  add_foreign_key 'visual_media', 'companies', column: 'tenant_id', primary_key: 'tenant_id', name: 'fk_companies',
+                                               on_delete: :cascade
 end

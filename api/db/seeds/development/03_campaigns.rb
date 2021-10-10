@@ -3,7 +3,8 @@
 require 'factory_bot_rails'
 
 Company.all.each_with_index do |company, index|
-  Tenant.switch(company.subdomain)
+  PgRls::Tenant.switch(company.subdomain)
+
   break if Campaign.any?
 
   puts "Seeding Campaigns in #{Rails.env.capitalize}" if index.zero?

@@ -23,14 +23,9 @@ default: &default
   pool: <%= Rails.application.credentials.dig(:database, :server_1, :pool) %>
 
 development:
-  primary:
-    <<: *default
-    database: api_development
-    username: <%= Rails.application.credentials.dig(:database, :server_1_admin, :username) %>
-    password: <%= Rails.application.credentials.dig(:database, :server_1_admin, :password) %>
-  app_user:
-    <<: *default
-    database: api_development
+  <<: *default
+  database: api_development
+
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -63,12 +58,8 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  primary:
-    <<: *default
-    database: api_test
-  app_user:
-    <<: *default
-    database: api_test
+  <<: *default
+  database: api_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -93,5 +84,3 @@ test:
 production:
   <<: *default
   database: api_production
-  username: api
-  password: <%= ENV['API_DATABASE_PASSWORD'] %>

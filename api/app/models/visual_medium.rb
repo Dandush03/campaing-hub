@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class VisualMedium < Tenant
+class VisualMedium < ApplicationRecord
   belongs_to :gallery, polymorphic: true
 
   validates :title,     length: { minimum: 3, maximum: 50 }, allow_blank: true

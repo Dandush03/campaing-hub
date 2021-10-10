@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Contact < Tenant
+class Contact < ApplicationRecord
   belongs_to :user, class_name: 'User', foreign_key: 'user_id', dependent: :destroy
   has_one :picture, -> { media('picture') }, class_name: 'VisualMedium', as: :gallery
   has_one :preference, dependent: :destroy

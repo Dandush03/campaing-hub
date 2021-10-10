@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 Company.all.each_with_index do |company, index|
-  Tenant.switch(company.subdomain)
+  PgRls::Tenant.switch(company.subdomain)
+
   break if User.any? && Contact.any?
 
   puts "Seeding Contacts in #{Rails.env.capitalize}" if index.zero?

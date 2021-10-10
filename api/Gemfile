@@ -47,6 +47,8 @@ gem 'paper_trail'
 # ActiveRecord Serializer
 gem 'active_model_serializers'
 
+gem 'pg_rls', '~> 0.0.1.beta'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'bullet'

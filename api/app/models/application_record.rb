@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationRecord < ActiveRecord::Base
-  self.abstract_class = true
+  include PgRls::SecureConnection
 
-  connects_to database: { writing: :primary, reading: :primary }
+  self.abstract_class = true
 end

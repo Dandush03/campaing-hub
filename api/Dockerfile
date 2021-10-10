@@ -12,12 +12,12 @@ WORKDIR /api
 
 ARG RAILS_ENV
 
-COPY Gemfile* ./
+COPY . .
+
+RUN ls
 
 RUN bundle install
 RUN yarn
-
-COPY . .
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh

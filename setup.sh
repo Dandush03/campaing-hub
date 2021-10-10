@@ -27,8 +27,8 @@ run() {
 
 (
   run api rails db:drop:all
-  run api rails db:create:primary
-  run api rails db:migrate:primary
+  run api rails db:create
+  run api rails db:migrate
   run api rails db:seed
   run api rails db:test:prepare RAILS_ENV=test
 )
