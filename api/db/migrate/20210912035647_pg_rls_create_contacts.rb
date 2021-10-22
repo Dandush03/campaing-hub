@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateContacts < ActiveRecord::Migration[6.1]
+class PgRlsCreateContacts < ActiveRecord::Migration[6.1]
   def up
     create_rls_table :contacts, id: :uuid do |t|
       t.string :firstname,    null: false, default: ''

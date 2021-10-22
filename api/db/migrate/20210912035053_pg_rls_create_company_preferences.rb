@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateCompanyPreferences < ActiveRecord::Migration[6.1]
+class PgRlsCreateCompanyPreferences < ActiveRecord::Migration[6.1]
   def up
     create_rls_table :company_preferences, id: :uuid do |t|
       t.string :available_locales, array: true, default: %i[es en]

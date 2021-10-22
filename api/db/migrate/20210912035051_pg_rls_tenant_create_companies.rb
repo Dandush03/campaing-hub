@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateCompanies < ActiveRecord::Migration[6.1]
+class PgRlsTenantCreateCompanies < ActiveRecord::Migration[6.1]
   def up
     create_rls_tenant_table :companies, id: :uuid do |t|
       t.string :name

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DeviseCreateUsers < ActiveRecord::Migration[6.1]
+class PgRlsDeviseCreateUsers < ActiveRecord::Migration[6.1]
   def up
     create_rls_table :users, id: :uuid do |t|
       ## Database authenticatable

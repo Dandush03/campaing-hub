@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateContactPreferences < ActiveRecord::Migration[6.1]
+class PgRlsCreateContactPreferences < ActiveRecord::Migration[6.1]
   def up
     create_rls_table :contact_preferences, id: :uuid do |t|
       t.string :locale

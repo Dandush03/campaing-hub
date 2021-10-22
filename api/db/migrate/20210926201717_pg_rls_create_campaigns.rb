@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateCampaigns < ActiveRecord::Migration[6.1]
+class PgRlsCreateCampaigns < ActiveRecord::Migration[6.1]
   def up
     create_rls_table :campaigns, id: :uuid do |t|
       t.string :name

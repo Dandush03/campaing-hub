@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateVisualMedia < ActiveRecord::Migration[6.1]
+class PgRlsCreateVisualMedia < ActiveRecord::Migration[6.1]
   def up
     create_rls_table :visual_media, id: :uuid do |t|
       t.string  :title,      null: false, default: ''
