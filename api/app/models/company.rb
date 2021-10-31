@@ -3,9 +3,7 @@
 class Company < ApplicationRecord
   has_one :company_preference, dependent: :destroy
 
-  has_secure_token :identification, length: 32
-
-  has_one_attached :logo
+  has_one_attached :logo, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 

@@ -6,7 +6,6 @@ class PgRlsTenantCreateCompanies < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :logo
 
-      t.string :identification
       t.string :subdomain
       t.string :domain
       t.string :lang, null: false, default: 'en'
@@ -15,7 +14,6 @@ class PgRlsTenantCreateCompanies < ActiveRecord::Migration[6.1]
     end
 
     add_index :companies, :name,            unique: true
-    add_index :companies, :identification,  unique: true
     add_index :companies, :domain,          unique: true
     add_index :companies, :subdomain,       unique: true
   end

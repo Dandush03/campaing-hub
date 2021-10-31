@@ -82,9 +82,15 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
-    FactoryBot.create(:company, subdomain: 'app')
-    Tenant.switch :app
   end
+
+  # Create A Default Tenant and Grant Test User Credentials
+  config.before(:suite) do
+    PgRls::Test::PreparedDatabase.grant_user_credentials
+    FactoryBot.create(:company, subdomain: 'app')
+    PgRls::Tenant.switch :app
+  end
+
   # start the transaction strategy as examples are run
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
