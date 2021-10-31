@@ -35,6 +35,9 @@ services:
         RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
     volumes:
       - .\api:\api
+      - api_bundle:\bundle
+    environment:
+      - BUNDLE_PATH=\bundle\vendor
     ports:
       - "3000:3000"
     depends_on:
@@ -60,7 +63,7 @@ services:
     depends_on:
       - api
 volumes:
-  bundle_cache:
+  api_bundle:
   postgres:
 networks:
   default:

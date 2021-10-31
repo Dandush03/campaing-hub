@@ -2,6 +2,8 @@
 
 set -e
 
+bundle check || bundle install --binstubs="$BUNDLE_BIN"
+
 if [ -f tmp/pids/server.pid ]; then
   rm tmp/pids/server.pid
 fi
@@ -12,5 +14,3 @@ if [[ $RAILS_ENV == 'production' ]]; then
 else 
   exec "$@"
 fi
-
-

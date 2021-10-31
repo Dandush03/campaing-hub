@@ -13,7 +13,6 @@ fi
 
 docker-compose pull
 docker-compose build
-
 docker-compose up -d
 
 run() {
@@ -21,14 +20,17 @@ run() {
 }
 
 (
-  run corporate yarn &
+  run api gem install bundler
+  run api bundle
+)
+
+(
+  run corporate yarn # &
   # run client yarn 
 ) &
 
 (
-  run api rails db:drop:all
   run api rails db:create
   run api rails db:migrate
   run api rails db:seed
-  run api rails db:test:prepare RAILS_ENV=test
 )

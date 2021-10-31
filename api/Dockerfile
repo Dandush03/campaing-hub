@@ -6,17 +6,18 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 
 RUN apt-get update -qq && apt-get install -y nodejs postgresql-client yarn
 
-RUN gem install bundler
-
 WORKDIR /api
 
 ARG RAILS_ENV
 
+ENV BUNDLE_PATH=/bundle \
+    BUNDLE_BIN=/bundle/bin \
+    GEM_HOME=/bundle
+
+ENV PATH="${BUNDLE_BIN}:${PATH}"
+
 COPY . .
 
-RUN ls
-
-RUN bundle install
 RUN yarn
 
 COPY entrypoint.sh /usr/bin/
